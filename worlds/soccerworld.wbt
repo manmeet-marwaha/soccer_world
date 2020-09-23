@@ -1,9 +1,10 @@
-#VRML_SIM R2020a utf8
+#VRML_SIM R2020b utf8
 WorldInfo {
+  coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.8379356997209096 -0.5074001087804472 -0.20101963272979093 5.431221511813757
-  position 2.138427225933914 7.812056838634341 9.999122161309021
+  orientation -0.22619000157066566 -0.9626508841047172 -0.14879972621570484 1.2387440191113557
+  position -6.994364686482421 2.7972504170415675 3.397053746798076
 }
 TexturedBackground {
 }
@@ -14,6 +15,45 @@ RobotstadiumSoccerField {
 DEF BALL SoccerBall {
 }
 Robot {
+  children [
+    DEF EMITTER Emitter {
+      children [
+        DEF RANGE Transform {
+          children [
+            Shape {
+              appearance PBRAppearance {
+                roughness 1
+                metalness 0
+              }
+              geometry Sphere {
+                radius 10
+                subdivision 2
+              }
+            }
+          ]
+        }
+      ]
+      type "infra-red"
+      channel -1
+    }
+  ]
+  boundingObject DEF MYBOT_BOUND Transform {
+    translation 0 0.0415 0
+    children [
+      DEF BODY Cylinder {
+        height 0.08
+        radius 0.045
+      }
+    ]
+  }
+  physics DEF MYBOT_PHYSICS Physics {
+    density -1
+    mass 0.5
+  }
   controller "soccer_referee"
   supervisor TRUE
+}
+DEF RECEIVER_BOT receiver {
+  translation -0.5 0 0
+  controller "soccer_player"
 }
